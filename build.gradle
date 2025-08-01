@@ -3,29 +3,29 @@ plugins {
   id 'application'
 
   // To create a fat jar build/libs/...-all.jar, run: ./gradlew shadowJar
-  id 'com.gradleup.shadow' version '8.3.7'
+  id 'com.gradleup.shadow' version '8.3.8'
 
 /*
   // Code formatting; defines targets "spotlessApply" and "spotlessCheck"
   // Requires JDK 11 or higher; the plugin crashes under JDK 8.
-  id 'com.diffplug.spotless' version '7.0.4'
+  id 'com.diffplug.spotless' version '7.2.1'
 
   // Error Prone linter
   id('net.ltgt.errorprone') version '4.3.0'
 
   // Checker Framework pluggable type-checking
-  id 'org.checkerframework' version '0.6.55'
+  id 'org.checkerframework' version '0.6.56'
 */
 }
 
 repositories {
   mavenLocal()
   mavenCentral()
-  maven { url = 'https://oss.sonatype.org/content/repositories/snapshots/' }
+  maven { url = 'https://central.sonatype.com/repository/maven-snapshots/' }
 }
 
 ext {
-  errorproneVersion = '2.39.0'
+  errorproneVersion = '2.41.0'
   isJava17orHigher = JavaVersion.current() >= JavaVersion.VERSION_17
   isJava21orHigher = JavaVersion.current() >= JavaVersion.VERSION_21
 }
@@ -34,7 +34,7 @@ dependencies {
   implementation 'org.plumelib:plume-util:1.11.0'
   implementation 'org.checkerframework:checker-qual:3.+'
 
-  testImplementation("org.junit.jupiter:junit-jupiter:5.13.2")
+  testImplementation("org.junit.jupiter:junit-jupiter:5.13.4")
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
@@ -66,16 +66,13 @@ spotless {
     endWithNewline()
   }
   java {
-*/
-//    targetExclude('**/WeakIdentityHashMap.java')
-/*
+    targetExclude('WeakIdentityHashMap.java')
     googleJavaFormat()
     formatAnnotations()
   }
   groovyGradle {
-*/
-//    target '**/*.gradle'
-/*    greclipse()  // which formatter Spotless should use to format .gradle files.
+    target '*.gradle'
+    greclipse()  // which formatter Spotless should use to format .gradle files.
     leadingTabsToSpaces(2)
     trimTrailingWhitespace()
     // endWithNewline() // Don't want to end empty files with a newline
@@ -127,7 +124,7 @@ checkerFramework {
 // To use a snapshot version of the Checker Framework.
 if (false) {
   // TODO: Change the above test to false when CF is released.
-  ext.checkerFrameworkVersion = '3.49.4'
+  ext.checkerFrameworkVersion = '3.49.5'
   dependencies {
     compileOnly "org.checkerframework:checker-qual:${checkerFrameworkVersion}"
     testCompileOnly "org.checkerframework:checker-qual:${checkerFrameworkVersion}"
@@ -144,7 +141,6 @@ if (project.hasProperty('cfLocal')) {
     compileOnly files(cfHome + '/checker/dist/checker-qual.jar')
     testCompileOnly files(cfHome + '/checker/dist/checker-qual.jar')
     checkerFramework files(cfHome + '/checker/dist/checker.jar')
-  }
   }
 }
 */
